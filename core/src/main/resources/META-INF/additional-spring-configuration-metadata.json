@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret key used to encrypt the JWT."
+    },
+    {
+      "name": "jwt.token.timeout",
+      "type": "java.lang.Integer",
+      "description": "Expiration timeout for the JWT (in seconds)."
+    }
+  ] }

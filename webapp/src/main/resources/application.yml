@@ -1,0 +1,41 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /intrasoft-skyroof
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/skyroof
+    username: skyroof
+    password: test1234
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle12cDialect
+        #format_sql: true
+    #show-sql: true
+    hibernate:
+      ddl-auto: validate
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  profiles:
+    active: "@spring.profiles.active@"
+jwt:
+  secret: super-secret-key
+  token:
+    timeout: 3600 # 1 hour
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: buckets
+      url: .*
+      http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota\" }"
+      rate-limits:
+        - bandwidths:
+            - capacity: 5
+              time: 10
+              unit: seconds
+logging:
+  level:
+    root: info
+    com.intrasoft: debug

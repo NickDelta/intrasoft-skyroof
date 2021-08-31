@@ -1,0 +1,49 @@
+# Eclipse
+.classpath
+.project
+.settings/
+.metadata/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+*.log
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+# Net Beans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# logback
+logs/
+
+# JRebel
+*rebel.xml
+*rebel-remote.xml
+
+# Other
+*.bak
+*.jdbc
+
+# Angular
+**/dist/*
+**/node_modules/*
+**/package-lock.json
+**/documentation/
+**/server/
+**/temp/node/
+
+# JTA logs
+transaction-logs
+

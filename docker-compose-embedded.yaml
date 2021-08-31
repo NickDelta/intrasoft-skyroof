@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+
+  db:
+    container_name: "skyroof-oracle19c"
+    image: "banglamon/oracle193db:19.3.0-ee"
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    volumes:
+      - "/usr/local/skyroof/oracle:/opt/oracle/oradata"
+    environment:
+      ORACLE_SID: INTRASOFT
+      ORACLE_PDB: skyroof
+      ORACLE_PWD: test1234
+    restart: unless-stopped
+
+  skyroof:
+    depends_on:
+      - db
+    container_name: "skyroof-api"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "skyroof-api:latest"
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:oracle:thin:@skyroof-oracle19c:1521/skyroof"
+      SPRING_DATASOURCE_USERNAME: skyroof
+      SPRING_DATASOURCE_PASSWORD: test1234
+    restart: unless-stopped

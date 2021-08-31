@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@skyroof-oracle19c:1521/skyroof
+    username: skyroof
+    password: test1234

@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+
+  db:
+    container_name: "skyroof-oracle19c"
+    image: "banglamon/oracle193db:19.3.0-ee"
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    volumes:
+      - "/usr/local/skyroof/oracle:/opt/oracle/oradata"
+    environment:
+      ORACLE_SID: INTRASOFT
+      ORACLE_PDB: skyroof
+      ORACLE_PWD: test1234
+    restart: unless-stopped
+
+  weblogic:
+    container_name: "skyroof-weblogic"
+    image: "store/oracle/weblogic:12.2.1.3-dev-200127"
+    depends_on:
+      - db
+    ports:
+      - "7001:7001"
+      - "61141:61141" #Debug
+    volumes:
+      - "./weblogic:/u01/oracle/properties"
+    environment:
+      ADMINISTRATION_PORT_ENABLED: "false"
+      DOMAIN_NAME: "docker_domain"
+      PRODUCTION_MODE: "dev"
+      DEBUG_FLAG: "true"
+    restart: unless-stopped
