@@ -99,9 +99,9 @@ public class ProjectService {
                     "Cannot mark project as deleted as there are still tasks which are not deleted");
         }
 
-        project.setDeleted(true);
-        project = projectDao.save(project);
-        log.debug("Project with id {} soft deleted", project.getId());
+        // project.setDeleted(true); IT IS TRANSIENT
+        projectDao.delete(project);
+        log.debug("Project with id {} deleted", project.getId());
         return project;
     }
 
